@@ -17,23 +17,19 @@ public class Stack<E>
     {
         if(top < stack.length-1)
         {
-            top++;
-            stack[top] = item;
+            //top++;
+            stack[++top] = item;
 
-            
         }
         else
         {   
+                
+            Object[] newStack = new Object[stack.length*2];
+            System.arraycopy(stack, 0, newStack, 0, stack.length);
+            //Object[(stack.length)*2];
             
-             Object[] tempStack = new Object[stack.length];
-            Object[] stack = new Object[(tempStack.length)*2];
-            for(int i = 0; i < tempStack.length; i++)
-            {
-                stack[i] = tempStack[i];
-            }
-            
-            stack[top] = item;
-            
+            newStack[top++] = item;
+            stack = newStack;
 
         }
     }
@@ -46,10 +42,11 @@ public class Stack<E>
         }
         else
         {
-        E del = (E)stack[top];
-        stack[top] = null;
-        top--;
-        return del;
+            E del = (E)stack[top];
+
+            stack[top--] = null;
+            //top--;
+            return del;
         }
 
     }
@@ -58,7 +55,7 @@ public class Stack<E>
     {
         if(top == -1 || stack[top] == null)
             throw new EmptyStackException();
-        
+
         else
             return (E)stack[top];
 
@@ -66,12 +63,12 @@ public class Stack<E>
 
     public boolean isEmpty()
     {
-        if(top == -1 || stack[top] == null)
+        if(top == -1)
             return true;
-        
+
         else
             return false;
-        
+
     }
 
     public int size()
